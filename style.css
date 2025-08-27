@@ -1,54 +1,112 @@
-/* Genel sayfa stili */
-body {
-    background-color: #000000; /* siyah arka plan */
-    color: #ffffff;            /* beyaz yazılar */
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PowerxbyZeus</title>
+    <style>
+        /* Genel sayfa stili */
+        body {
+            background-color: #000000; /* siyah arka plan */
+            color: #ffffff;            /* beyaz yazılar */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
 
-/* Header stili */
-header {
-    background-color: #000000;
-    color: #ffffff;
-    padding: 20px;
-}
+        /* Header stili */
+        header {
+            background-color: #000000;
+            color: #ffffff;
+            padding: 20px;
+        }
 
-nav a {
-    color: #ffffff;
-    text-decoration: none;
-    margin-right: 20px;
-    font-weight: bold;
-}
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            margin-right: 20px;
+            font-weight: bold;
+        }
 
-nav a:hover {
-    text-decoration: underline;
-}
+        nav a:hover {
+            text-decoration: underline;
+        }
 
-/* Main içeriği */
-main {
-    padding: 40px;
-}
+        /* Main içeriği ve çizgi ekleme */
+        main {
+            padding: 40px;
+            text-align: center;
+            border-top: 2px solid #ffffff; /* header ile ayrıcı çizgi */
+            margin-top: 20px;
+        }
 
-/* Footer stili */
-footer {
-    background-color: #000000;
-    color: #ffffff;
-    text-align: center;
-    padding: 15px;
-}
+        /* Footer stili */
+        footer {
+            background-color: #000000;
+            color: #ffffff;
+            text-align: center;
+            padding: 15px;
+        }
 
-/* TikTok login butonu */
-button#tiktok-login {
-    background-color: #ffffff;  /* beyaz buton */
-    color: #000000;             /* siyah yazı */
-    border: none;               /* köşesiz */
-    padding: 20px 40px;         /* büyük boyut */
-    font-size: 20px;            /* büyük yazı */
-    cursor: pointer;
-    border-radius: 0;           /* köşesiz dikdörtgen */
-}
+        /* TikTok login butonu */
+        button#tiktok-login {
+            background-color: #ffffff;  /* beyaz buton */
+            color: #000000;             /* siyah yazı */
+            border: none;               /* köşesiz */
+            padding: 25px 50px;         /* büyük boyut */
+            font-size: 22px;            /* büyük yazı */
+            cursor: pointer;
+            border-radius: 0;           /* köşesiz dikdörtgen */
+            margin-top: 30px;           /* üstten boşluk */
+        }
 
-button#tiktok-login:hover {
-    background-color: #e0e0e0;  /* hover hafif gri */
-}
+        button#tiktok-login:hover {
+            background-color: #e0e0e0;  /* hover hafif gri */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>PowerxbyZeus</h1>
+        <nav>
+            <a href="index.html">Ana Sayfa</a>
+            <a href="terms.html">Hizmet Şartları</a>
+            <a href="privacy.html">Gizlilik Politikası</a>
+        </nav>
+    </header>
+
+    <main>
+        <p>Merhaba! Aşağıdaki butona tıklayarak TikTok ile giriş yapabilirsiniz.</p>
+
+        <!-- TikTok Login Butonu -->
+        <button id="tiktok-login">TikTok ile Giriş Yap</button>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 PowerxbyZeus</p>
+    </footer>
+
+    <script>
+        // TikTok Developer bilgileriniz
+        const CLIENT_KEY = "awkyefgev6d51fnb";
+        const REDIRECT_URI = "https://zeusxby.github.io/PowerxbyZeus/callback.html";
+
+        // Rastgele state üretme fonksiyonu
+        function generateState(length = 16) {
+            const array = new Uint8Array(length);
+            window.crypto.getRandomValues(array);
+            return Array.from(array, dec => ('0' + dec.toString(16)).substr(-2)).join('');
+        }
+
+        // Butona tıklanınca TikTok login sayfasına yönlendirme
+        document.getElementById("tiktok-login").onclick = function() {
+            const state = generateState();
+            localStorage.setItem("tiktok_oauth_state", state);
+
+            const scope = "user.info.basic";
+            const authURL = `https://www.tiktok.com/auth/authorize/?client_key=${CLIENT_KEY}&scope=${scope}&response_type=code&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&state=${state}`;
+            window.location.href = authURL;
+        }
+    </script>
+</body>
+</html>
