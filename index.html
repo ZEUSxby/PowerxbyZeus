@@ -5,16 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PowerxbyZeus</title>
     <style>
-        /* Genel sayfa stili */
         body {
-            background-color: #000000; /* siyah arka plan */
-            color: #ffffff;            /* beyaz yazılar */
+            background-color: #000000;
+            color: #ffffff;
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
         }
 
-        /* Header stili */
         header {
             background-color: #000000;
             color: #ffffff;
@@ -32,15 +30,13 @@
             text-decoration: underline;
         }
 
-        /* Main içeriği ve çizgi ekleme */
         main {
             padding: 40px;
             text-align: center;
-            border-top: 2px solid #ffffff; /* header ile ayrıcı çizgi */
+            border-top: 2px solid #ffffff;
             margin-top: 20px;
         }
 
-        /* Footer stili */
         footer {
             background-color: #000000;
             color: #ffffff;
@@ -48,20 +44,19 @@
             padding: 15px;
         }
 
-        /* TikTok login butonu */
         button#tiktok-login {
-            background-color: #ffffff;  /* beyaz buton */
-            color: #000000;             /* siyah yazı */
-            border: none;               /* köşesiz */
-            padding: 25px 50px;         /* büyük boyut */
-            font-size: 22px;            /* büyük yazı */
+            background-color: #ffffff;
+            color: #000000;
+            border: none;
+            padding: 25px 50px;
+            font-size: 22px;
             cursor: pointer;
-            border-radius: 0;           /* köşesiz dikdörtgen */
-            margin-top: 30px;           /* üstten boşluk */
+            border-radius: 0;
+            margin-top: 30px;
         }
 
         button#tiktok-login:hover {
-            background-color: #e0e0e0;  /* hover hafif gri */
+            background-color: #e0e0e0;
         }
     </style>
 </head>
@@ -77,8 +72,6 @@
 
     <main>
         <p>Merhaba! Aşağıdaki butona tıklayarak TikTok ile giriş yapabilirsiniz.</p>
-
-        <!-- TikTok Login Butonu -->
         <button id="tiktok-login">TikTok ile Giriş Yap</button>
     </main>
 
@@ -87,18 +80,15 @@
     </footer>
 
     <script>
-        // TikTok Developer bilgileriniz
         const CLIENT_KEY = "awkyefgev6d51fnb";
         const REDIRECT_URI = "https://zeusxby.github.io/PowerxbyZeus/callback.html";
 
-        // Rastgele state üretme fonksiyonu
         function generateState(length = 16) {
             const array = new Uint8Array(length);
             window.crypto.getRandomValues(array);
             return Array.from(array, dec => ('0' + dec.toString(16)).substr(-2)).join('');
         }
 
-        // Butona tıklanınca TikTok login sayfasına yönlendirme
         document.getElementById("tiktok-login").onclick = function() {
             const state = generateState();
             localStorage.setItem("tiktok_oauth_state", state);
