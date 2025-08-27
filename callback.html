@@ -6,8 +6,8 @@
     <title>TikTok Callback</title>
     <style>
         body {
-            background-color: #000000; /* siyah arka plan */
-            color: #ffffff;            /* beyaz yazılar */
+            background-color: #000000;
+            color: #ffffff;
             font-family: Arial, sans-serif;
             text-align: center;
             padding: 50px;
@@ -32,13 +32,13 @@
         }
 
         button {
-            background-color: #ffffff;  /* beyaz buton */
-            color: #000000;             /* siyah yazı */
-            border: none;               /* köşesiz */
+            background-color: #ffffff;
+            color: #000000;
+            border: none;
             padding: 20px 40px;
             font-size: 20px;
             cursor: pointer;
-            border-radius: 0;           /* köşesiz dikdörtgen */
+            border-radius: 0;
             margin-top: 30px;
         }
 
@@ -54,7 +54,6 @@
     <button onclick="window.location.href='index.html'">Ana Sayfaya Dön</button>
 
     <script>
-        // URL’den code ve state al
         const urlParams = new URLSearchParams(window.location.search);
         const code = urlParams.get('code');
         const returnedState = urlParams.get('state');
@@ -65,11 +64,9 @@
         if (!code || !returnedState || returnedState !== savedState) {
             statusElem.innerHTML = "<span class='error'>State doğrulaması başarısız veya code eksik!</span>";
         } else {
-            statusElem.innerHTML = "<span class='success'>State doğrulandı, giriş başarılı!</span>";
+            statusElem.innerHTML = "<span class='success'>State doğrulandı, login başarılı!</span>";
             console.log("Kod:", code);
             console.log("State doğrulandı.");
-
-            // Not: Access token almak için backend gerekir.
             alert("TikTok login başarılı! Kod: " + code);
         }
     </script>
