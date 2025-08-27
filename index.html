@@ -18,10 +18,36 @@
 
     <main>
         <p>Bu benim ilk GitHub Pages sitem. Burada istediğin içerikleri paylaşabilirsin.</p>
+
+        <!-- TikTok Login Butonu -->
+        <button id="tiktok-login">TikTok ile Giriş Yap</button>
     </main>
 
     <footer>
         <p>&copy; 2025 Benim Adım</p>
     </footer>
+
+    <script>
+        // TikTok Developer bilgileriniz
+        const CLIENT_KEY = "awkyefgev6d51fnb";
+        const REDIRECT_URI = "https://zeusxby.github.io/PowerxbyZeus/callback.html";
+
+        // Rastgele state üretme fonksiyonu
+        function generateState(length = 16) {
+            const array = new Uint8Array(length);
+            window.crypto.getRandomValues(array);
+            return Array.from(array, dec => ('0' + dec.toString(16)).substr(-2)).join('');
+        }
+
+        // Butona tıklanınca TikTok login sayfasına yönlendirme
+        document.getElementById("tiktok-login").onclick = function() {
+            const state = generateState();
+            localStorage.setItem("tiktok_oauth_state", state);
+
+            const scope = "user.info.basic";
+            const authURL = `https://www.tiktok.com/auth/authorize/?client_key=${CLIENT_KEY}&scope=${scope}&response_type=code&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&state=${state}`;
+            window.location.href = authURL;
+        }
+    </script>
 </body>
 </html>
