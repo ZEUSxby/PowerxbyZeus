@@ -4,30 +4,72 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TikTok Callback</title>
+    <style>
+        body {
+            background-color: #000000; /* siyah arka plan */
+            color: #ffffff;            /* beyaz yazılar */
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px;
+        }
+
+        .success {
+            color: #00ff00;
+            font-weight: bold;
+        }
+
+        .error {
+            color: #ff4d4d;
+            font-weight: bold;
+        }
+
+        button {
+            background-color: #ffffff;  /* beyaz buton */
+            color: #000000;             /* siyah yazı */
+            border: none;               /* köşesiz */
+            padding: 20px 40px;
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 0;           /* köşesiz dikdörtgen */
+            margin-top: 30px;
+        }
+
+        button:hover {
+            background-color: #e0e0e0;
+        }
+    </style>
 </head>
 <body>
     <h1>TikTok Login Callback</h1>
     <p id="status">Giriş bilgileri alınıyor...</p>
 
-    <script>
-        const CLIENT_KEY = "awkyefgev6d51fnb";
-        const CLIENT_SECRET = "0WDkqm8uC67s9TR4YJT4uxF3m5nBTvmx";
+    <button onclick="window.location.href='index.html'">Ana Sayfaya Dön</button>
 
+    <script>
         // URL’den code ve state al
         const urlParams = new URLSearchParams(window.location.search);
         const code = urlParams.get('code');
         const returnedState = urlParams.get('state');
         const savedState = localStorage.getItem('tiktok_oauth_state');
 
-        if (!code || !returnedState || returnedState !== savedState) {
-            document.getElementById('status').innerText = "State doğrulaması başarısız veya code eksik!";
-        } else {
-            document.getElementById('status').innerText = "State doğrulandı, access token alınıyor...";
+        const statusElem = document.getElementById('status');
 
-            // Access token isteği için TikTok API (CORS nedeniyle client-side doğrudan çalışmayabilir)
-            // Normalde bu adım backend üzerinden yapılır.
+        if (!code || !returnedState || returnedState !== savedState) {
+            statusElem.innerHTML = "<span class='error'>State doğrulaması başarısız veya code eksik!</span>";
+        } else {
+            statusElem.innerHTML = "<span class='success'>State doğrulandı, giriş başarılı!</span>";
             console.log("Kod:", code);
             console.log("State doğrulandı.");
+
+            // Not: Access token almak için backend gerekir.
             alert("TikTok login başarılı! Kod: " + code);
         }
     </script>
