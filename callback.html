@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok Callback</title>
+</head>
+<body>
+    <h1>TikTok Login Callback</h1>
+    <p id="status">Giriş bilgileri alınıyor...</p>
+
+    <script>
+        const CLIENT_KEY = "awkyefgev6d51fnb";
+        const CLIENT_SECRET = "0WDkqm8uC67s9TR4YJT4uxF3m5nBTvmx";
+
+        // URL’den code ve state al
+        const urlParams = new URLSearchParams(window.location.search);
+        const code = urlParams.get('code');
+        const returnedState = urlParams.get('state');
+        const savedState = localStorage.getItem('tiktok_oauth_state');
+
+        if (!code || !returnedState || returnedState !== savedState) {
+            document.getElementById('status').innerText = "State doğrulaması başarısız veya code eksik!";
+        } else {
+            document.getElementById('status').innerText = "State doğrulandı, access token alınıyor...";
+
+            // Access token isteği için TikTok API (CORS nedeniyle client-side doğrudan çalışmayabilir)
+            // Normalde bu adım backend üzerinden yapılır.
+            console.log("Kod:", code);
+            console.log("State doğrulandı.");
+            alert("TikTok login başarılı! Kod: " + code);
+        }
+    </script>
+</body>
+</html>
