@@ -33,7 +33,7 @@
       border-radius: 8px;
       font-size: 16px;
     }
-    .login-container button {
+    .login-btn {
       width: 100%;
       padding: 14px;
       background: linear-gradient(135deg, #bb86fc, #a16eff);
@@ -43,8 +43,21 @@
       cursor: pointer;
       font-size: 16px;
       margin-top: 10px;
+      font-weight: 600;
     }
-    .login-container button:hover {
+    .register-btn {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #03dac6, #00c7b1);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+      font-weight: 600;
+    }
+    .login-btn:hover, .register-btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 16px rgba(187, 134, 252, 0.4);
     }
@@ -53,6 +66,7 @@
       margin-top: 20px;
       color: #03dac6;
       text-decoration: none;
+      font-size: 14px;
     }
     .guest-link:hover {
       text-decoration: underline;
@@ -67,8 +81,11 @@
     <form id="loginForm">
       <input type="text" id="username" placeholder="Kullanıcı Adı" required />
       <input type="password" id="password" placeholder="Şifre" required />
-      <button type="submit">Giriş Yap</button>
+      <button type="submit" class="login-btn">Giriş Yap</button>
     </form>
+
+    <!-- Kaydol Butonu -->
+    <button class="register-btn" onclick="showRegisterAlert()">Kaydol</button>
 
     <a href="index.html" class="guest-link">→ Ziyaretçi olarak devam et</a>
   </div>
@@ -78,6 +95,7 @@
     const ADMIN_USER = "boss";
     const ADMIN_PASS = "admin2025";
 
+    // Giriş yap
     document.getElementById("loginForm").addEventListener("submit", function(e) {
       e.preventDefault();
       const username = document.getElementById("username").value;
@@ -85,11 +103,16 @@
 
       if (username === ADMIN_USER && password === ADMIN_PASS) {
         localStorage.setItem("adminLoggedIn", "true");
-        window.location.href = "admin.html"; // Admin paneline yönlendir
+        window.location.href = "admin.html";
       } else {
         alert("❌ Giriş bilgileri hatalı. Ziyaretçi olarak devam edebilirsiniz.");
       }
     });
+
+    // Kaydol butonuna tıklayınca uyarı göster
+    function showRegisterAlert() {
+      alert("Üzgünüz, kayıt sistemi kapalıdır. Lütfen geliştirici ile iletişime geçin: @BY_ZeuSx");
+    }
   </script>
 </body>
 </html>
