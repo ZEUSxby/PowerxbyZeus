@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Giriş Yap</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .login-container {
+      max-width: 400px;
+      margin: 100px auto;
+      padding: 30px;
+      background: #1e1e1e;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+      text-align: center;
+    }
+    .login-container h1 {
+      margin-bottom: 20px;
+      color: #bb86fc;
+    }
+    .login-container p {
+      margin: 10px 0;
+      color: #b0b0b0;
+    }
+    .login-container input {
+      width: 100%;
+      padding: 14px;
+      margin: 10px 0;
+      border: 1px solid #444;
+      background: #2a2a2a;
+      color: #fff;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    .login-container button {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #bb86fc, #a16eff);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+    .login-container button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(187, 134, 252, 0.4);
+    }
+    .guest-link {
+      display: block;
+      margin-top: 20px;
+      color: #03dac6;
+      text-decoration: none;
+    }
+    .guest-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h1>🔐 Giriş Yap</h1>
+    <p>Admin olarak giriş yapmak için bilgilerinizi girin.</p>
+
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Kullanıcı Adı" required />
+      <input type="password" id="password" placeholder="Şifre" required />
+      <button type="submit">Giriş Yap</button>
+    </form>
+
+    <a href="index.html" class="guest-link">→ Ziyaretçi olarak devam et</a>
+  </div>
+
+  <script>
+    // Admin bilgileri
+    const ADMIN_USER = "boss";
+    const ADMIN_PASS = "admin2025";
+
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+      if (username === ADMIN_USER && password === ADMIN_PASS) {
+        localStorage.setItem("adminLoggedIn", "true");
+        window.location.href = "admin.html"; // Admin paneline yönlendir
+      } else {
+        alert("❌ Giriş bilgileri hatalı. Ziyaretçi olarak devam edebilirsiniz.");
+      }
+    });
+  </script>
+</body>
+</html>
