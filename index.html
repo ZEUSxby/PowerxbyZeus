@@ -1,102 +1,88 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PowerxbyZeus</title>
-    <style>
-        body {
-            background-color: #000000;
-            color: #ffffff;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        header {
-            background-color: #000000;
-            color: #ffffff;
-            padding: 20px;
-        }
-
-        nav a {
-            color: #ffffff;
-            text-decoration: none;
-            margin-right: 20px;
-            font-weight: bold;
-        }
-
-        nav a:hover {
-            text-decoration: underline;
-        }
-
-        main {
-            padding: 40px;
-            text-align: center;
-            border-top: 2px solid #ffffff;
-            margin-top: 20px;
-        }
-
-        footer {
-            background-color: #000000;
-            color: #ffffff;
-            text-align: center;
-            padding: 15px;
-        }
-
-        button#tiktok-login {
-            background-color: #ffffff;
-            color: #000000;
-            border: none;
-            padding: 25px 50px;
-            font-size: 22px;
-            cursor: pointer;
-            border-radius: 0;
-            margin-top: 30px;
-        }
-
-        button#tiktok-login:hover {
-            background-color: #e0e0e0;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>TikTok SessionID Lookup</title>
+  <style>
+    body { background:#121212; color:white; font-family:sans-serif; text-align:center; }
+    input, button { padding:12px; margin:10px; border-radius:8px; border:none; }
+    input { width: 280px; background:#2a2a2a; color:white; }
+    button { background:#a855f7; color:white; cursor:pointer; }
+    button:hover { background:#9333ea; }
+    .card { 
+      border:1px solid #444; 
+      padding:20px; 
+      border-radius:10px; 
+      background:#1e1e1e; 
+      max-width:400px; 
+      margin:20px auto; 
+      text-align:left;
+    }
+    img { border-radius:50%; margin-bottom:10px; }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>PowerxbyZeus</h1>
-        <nav>
-            <a href="index.html">Ana Sayfa</a>
-            <a href="terms.html">Hizmet Şartları</a>
-            <a href="privacy.html">Gizlilik Politikası</a>
-        </nav>
-    </header>
+  <h2>🔍 TikTok SessionID Lookup</h2>
+  <input type="text" id="sessionid" placeholder="Session ID gir">
+  <button onclick="lookup()">Ara</button>
 
-    <main>
-        <p>Merhaba! Aşağıdaki butona tıklayarak TikTok ile giriş yapabilirsiniz.</p>
-        <button id="tiktok-login">TikTok ile Giriş Yap</button>
-    </main>
+  <div id="result"></div>
 
-    <footer>
-        <p>&copy; 2025 PowerxbyZeus</p>
-    </footer>
+  <script>
+    async function lookup() {
+      const sessionid = document.getElementById("sessionid").value;
+      const resultDiv = document.getElementById("result");
+      resultDiv.innerHTML = "⏳ Yükleniyor...";
 
-    <script>
-        const CLIENT_KEY = "awkyefgev6d51fnb";
-        const REDIRECT_URI = "https://zeusxby.github.io/PowerxbyZeus/callback.html";
+      try {
+        const resp = await fetch("https://www.tiktok.com/passport/web/account/info/", {
+          method: "GET",
+          headers: {
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; Mobile Safari/537.36)",
+            "Referer": "https://www.tiktok.com/"
+          },
+          credentials: "include" // çerez ekleme
+        });
 
-        function generateState(length = 16) {
-            const array = new Uint8Array(length);
-            window.crypto.getRandomValues(array);
-            return Array.from(array, dec => ('0' + dec.toString(16)).substr(-2)).join('');
+        if (!resp.ok) {
+          resultDiv.innerHTML = "❌ İstek başarısız, kod: " + resp.status;
+          return;
         }
 
-        document.getElementById("tiktok-login").onclick = function() {
-            const state = generateState();
-            localStorage.setItem("tiktok_oauth_state", state);
+        const json = await resp.json();
+        const data = json.data || {};
 
-            const scope = "user.info.basic";
-            const authURL = `https://www.tiktok.com/auth/authorize/?client_key=${CLIENT_KEY}&scope=${scope}&response_type=code&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&state=${state}`;
-            window.location.href = authURL;
-        }
-    </script>
+        const user_info = {
+          "👤 Username": data.username,
+          "📝 Screen Name": data.screen_name,
+          "📧 Email": data.email,
+          "🆔 User ID": data.user_id,
+          "🌍 Country Code": data.country_code,
+          "🖼️ Avatar URL": data.avatar_url,
+          "📄 Description": data.description,
+          "🔑 Has Password": data.has_password ? "Evet" : "Hayır",
+          "📅 Create Time": data.create_time,
+          "🔗 Profile URL": data.username ? `https://www.tiktok.com/@${data.username}` : null
+        };
+
+        // Kart olarak yazdır
+        resultDiv.innerHTML = `
+          <div class="card">
+            <img src="${user_info["🖼️ Avatar URL"]}" width="100">
+            <b>👤 Kullanıcı:</b> ${user_info["👤 Username"] || "-"}<br>
+            <b>📧 Email:</b> ${user_info["📧 Email"] || "-"}<br>
+            <b>🆔 User ID:</b> ${user_info["🆔 User ID"] || "-"}<br>
+            <b>🌍 Ülke:</b> ${user_info["🌍 Country Code"] || "-"}<br>
+            <b>📄 Açıklama:</b> ${user_info["📄 Description"] || "-"}<br>
+            <b>🔑 Şifre:</b> ${user_info["🔑 Has Password"]}<br>
+            <b>📅 Tarih:</b> ${user_info["📅 Create Time"] || "-"}<br>
+            <b>🔗 Profil:</b> <a href="${user_info["🔗 Profile URL"]}" target="_blank">${user_info["🔗 Profile URL"]}</a>
+          </div>
+        `;
+      } catch (err) {
+        resultDiv.innerHTML = "❌ Hata: " + err.message;
+      }
+    }
+  </script>
 </body>
 </html>
