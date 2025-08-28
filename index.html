@@ -1,88 +1,34 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <title>TikTok SessionID Lookup</title>
-  <style>
-    body { background:#121212; color:white; font-family:sans-serif; text-align:center; }
-    input, button { padding:12px; margin:10px; border-radius:8px; border:none; }
-    input { width: 280px; background:#2a2a2a; color:white; }
-    button { background:#a855f7; color:white; cursor:pointer; }
-    button:hover { background:#9333ea; }
-    .card { 
-      border:1px solid #444; 
-      padding:20px; 
-      border-radius:10px; 
-      background:#1e1e1e; 
-      max-width:400px; 
-      margin:20px auto; 
-      text-align:left;
-    }
-    img { border-radius:50%; margin-bottom:10px; }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bot Bilgileri</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h2>🔍 TikTok SessionID Lookup</h2>
-  <input type="text" id="sessionid" placeholder="Session ID gir">
-  <button onclick="lookup()">Ara</button>
+  <div class="container">
+    <h1>📘 Hoş Geldiniz</h1>
+    <p>Telegram botlarımız ve araçlara aşağıdan erişebilirsiniz.</p>
 
-  <div id="result"></div>
+    <a href="t.me/BY_ZeuSx" target="_blank" class="telegram-link">
+      🔗 Telegram Kanalına Git
+    </a>
 
-  <script>
-    async function lookup() {
-      const sessionid = document.getElementById("sessionid").value;
-      const resultDiv = document.getElementById("result");
-      resultDiv.innerHTML = "⏳ Yükleniyor...";
+    <div class="bots">
+      <p><strong>Session To User Bot:</strong> <span id="sessionBot">@yukleniyor...</span></p>
+      <p><strong>Fake Mail Bot:</strong> <span id="fakeMailBot">@yukleniyor...</span></p>
+      <p><strong>Diğer Bot:</strong> <span id="otherBot">@yukleniyor...</span></p>
+    </div>
 
-      try {
-        const resp = await fetch("https://www.tiktok.com/passport/web/account/info/", {
-          method: "GET",
-          headers: {
-            "User-Agent": "Mozilla/5.0 (Linux; Android 10; Mobile Safari/537.36)",
-            "Referer": "https://www.tiktok.com/"
-          },
-          credentials: "include" // çerez ekleme
-        });
+    <div class="links">
+      <a href="privacy.html">Gizlilik Politikası</a> •
+      <a href="terms.html">Kullanım Koşulları</a>
+    </div>
 
-        if (!resp.ok) {
-          resultDiv.innerHTML = "❌ İstek başarısız, kod: " + resp.status;
-          return;
-        }
+    <a href="admin.html" class="admin-link">🔐 Admin Girişi</a>
+  </div>
 
-        const json = await resp.json();
-        const data = json.data || {};
-
-        const user_info = {
-          "👤 Username": data.username,
-          "📝 Screen Name": data.screen_name,
-          "📧 Email": data.email,
-          "🆔 User ID": data.user_id,
-          "🌍 Country Code": data.country_code,
-          "🖼️ Avatar URL": data.avatar_url,
-          "📄 Description": data.description,
-          "🔑 Has Password": data.has_password ? "Evet" : "Hayır",
-          "📅 Create Time": data.create_time,
-          "🔗 Profile URL": data.username ? `https://www.tiktok.com/@${data.username}` : null
-        };
-
-        // Kart olarak yazdır
-        resultDiv.innerHTML = `
-          <div class="card">
-            <img src="${user_info["🖼️ Avatar URL"]}" width="100">
-            <b>👤 Kullanıcı:</b> ${user_info["👤 Username"] || "-"}<br>
-            <b>📧 Email:</b> ${user_info["📧 Email"] || "-"}<br>
-            <b>🆔 User ID:</b> ${user_info["🆔 User ID"] || "-"}<br>
-            <b>🌍 Ülke:</b> ${user_info["🌍 Country Code"] || "-"}<br>
-            <b>📄 Açıklama:</b> ${user_info["📄 Description"] || "-"}<br>
-            <b>🔑 Şifre:</b> ${user_info["🔑 Has Password"]}<br>
-            <b>📅 Tarih:</b> ${user_info["📅 Create Time"] || "-"}<br>
-            <b>🔗 Profil:</b> <a href="${user_info["🔗 Profile URL"]}" target="_blank">${user_info["🔗 Profile URL"]}</a>
-          </div>
-        `;
-      } catch (err) {
-        resultDiv.innerHTML = "❌ Hata: " + err.message;
-      }
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
