@@ -3,25 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin Girişi</title>
+  <title>Admin Panel</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <h1>Admin Girişi</h1>
+    <h1>🔐 Admin Girişi</h1>
     <form id="loginForm">
       <input type="text" id="username" placeholder="Kullanıcı Adı" required />
       <input type="password" id="password" placeholder="Şifre" required />
       <button type="submit">Giriş Yap</button>
     </form>
 
-    <div id="editForm" style="display: none; margin-top: 20px;">
-      <h2>Bot Bilgilerini Düzenle</h2>
+    <div id="editForm" style="display: none; margin-top: 30px;">
+      <h2>🔧 Bot Bilgilerini Düzenle</h2>
       <form id="botForm">
         <input type="text" id="sessionBot" placeholder="Session To User Bot (ör: @bot123)" required />
         <input type="text" id="fakeMailBot" placeholder="Fake Mail Bot (ör: @mailbot)" required />
         <input type="text" id="otherBot" placeholder="Diğer Bot (ör: @xxx)" required />
-        <button type="submit">Kaydet</button>
+        <button type="submit">💾 Kaydet</button>
       </form>
       <button onclick="logout()" class="logout-btn">Çıkış Yap</button>
     </div>
