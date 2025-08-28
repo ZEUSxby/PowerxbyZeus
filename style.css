@@ -1,112 +1,162 @@
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PowerxbyZeus</title>
-    <style>
-        /* Genel sayfa stili */
-        body {
-            background-color: #000000; /* siyah arka plan */
-            color: #ffffff;            /* beyaz yazılar */
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
+/* Modern Dark Theme - style.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-        /* Header stili */
-        header {
-            background-color: #000000;
-            color: #ffffff;
-            padding: 20px;
-        }
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #121212;
+  color: #e0e0e0;
+  line-height: 1.7;
+  min-height: 100vh;
+}
 
-        nav a {
-            color: #ffffff;
-            text-decoration: none;
-            margin-right: 20px;
-            font-weight: bold;
-        }
+.container {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #1e1e1e;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border: 1px solid #333;
+  text-align: center;
+}
 
-        nav a:hover {
-            text-decoration: underline;
-        }
+h1 {
+  margin-bottom: 20px;
+  color: #bb86fc;
+  font-weight: 600;
+  font-size: 28px;
+}
 
-        /* Main içeriği ve çizgi ekleme */
-        main {
-            padding: 40px;
-            text-align: center;
-            border-top: 2px solid #ffffff; /* header ile ayrıcı çizgi */
-            margin-top: 20px;
-        }
+p {
+  color: #b0b0b0;
+  margin: 10px 0;
+}
 
-        /* Footer stili */
-        footer {
-            background-color: #000000;
-            color: #ffffff;
-            text-align: center;
-            padding: 15px;
-        }
+/* Telegram Link Butonu */
+.telegram-link {
+  display: inline-block;
+  margin: 25px 0;
+  padding: 14px 30px;
+  background: linear-gradient(135deg, #0088cc, #006699);
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 14px rgba(0, 100, 200, 0.3);
+}
 
-        /* TikTok login butonu */
-        button#tiktok-login {
-            background-color: #ffffff;  /* beyaz buton */
-            color: #000000;             /* siyah yazı */
-            border: none;               /* köşesiz */
-            padding: 25px 50px;         /* büyük boyut */
-            font-size: 22px;            /* büyük yazı */
-            cursor: pointer;
-            border-radius: 0;           /* köşesiz dikdörtgen */
-            margin-top: 30px;           /* üstten boşluk */
-        }
+.telegram-link:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 100, 200, 0.4);
+}
 
-        button#tiktok-login:hover {
-            background-color: #e0e0e0;  /* hover hafif gri */
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>PowerxbyZeus</h1>
-        <nav>
-            <a href="index.html">Ana Sayfa</a>
-            <a href="terms.html">Hizmet Şartları</a>
-            <a href="privacy.html">Gizlilik Politikası</a>
-        </nav>
-    </header>
+/* Bot Bilgileri */
+.bots {
+  margin: 30px 0;
+  text-align: left;
+  background: #2a2a2a;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #3a3a3a;
+}
 
-    <main>
-        <p>Merhaba! Aşağıdaki butona tıklayarak TikTok ile giriş yapabilirsiniz.</p>
+.bots p {
+  margin: 14px 0;
+  font-size: 16px;
+  color: #e0e0e0;
+}
 
-        <!-- TikTok Login Butonu -->
-        <button id="tiktok-login">TikTok ile Giriş Yap</button>
-    </main>
+.bots strong {
+  color: #03dac6;
+  min-width: 180px;
+  display: inline-block;
+}
 
-    <footer>
-        <p>&copy; 2025 PowerxbyZeus</p>
-    </footer>
+/* Linkler Alt Bölüm */
+.links {
+  margin: 25px 0 15px;
+  font-size: 14px;
+  color: #888;
+}
 
-    <script>
-        // TikTok Developer bilgileriniz
-        const CLIENT_KEY = "awkyefgev6d51fnb";
-        const REDIRECT_URI = "https://zeusxby.github.io/PowerxbyZeus/callback.html";
+.links a {
+  color: #03dac6;
+  text-decoration: none;
+  transition: color 0.3s;
+}
 
-        // Rastgele state üretme fonksiyonu
-        function generateState(length = 16) {
-            const array = new Uint8Array(length);
-            window.crypto.getRandomValues(array);
-            return Array.from(array, dec => ('0' + dec.toString(16)).substr(-2)).join('');
-        }
+.links a:hover {
+  color: #bb86fc;
+  text-decoration: underline;
+}
 
-        // Butona tıklanınca TikTok login sayfasına yönlendirme
-        document.getElementById("tiktok-login").onclick = function() {
-            const state = generateState();
-            localStorage.setItem("tiktok_oauth_state", state);
+/* Admin Linki */
+.admin-link {
+  display: inline-block;
+  margin-top: 20px;
+  color: #bb86fc;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
 
-            const scope = "user.info.basic";
-            const authURL = `https://www.tiktok.com/auth/authorize/?client_key=${CLIENT_KEY}&scope=${scope}&response_type=code&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&state=${state}`;
-            window.location.href = authURL;
-        }
-    </script>
-</body>
-</html>
+.admin-link:hover {
+  color: #cf6679;
+  text-decoration: underline;
+}
+
+/* Formlar */
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 14px;
+  margin: 10px 0;
+  border: 1px solid #444;
+  background: #2a2a2a;
+  color: #fff;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+  border: 1px solid #bb86fc;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(187, 134, 252, 0.3);
+}
+
+button {
+  padding: 14px 24px;
+  background: linear-gradient(135deg, #bb86fc, #a16eff);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(187, 134, 252, 0.3);
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(187, 134, 252, 0.4);
+}
+
+.logout-btn {
+  background: linear-gradient(135deg, #cf6679, #b00020) !important;
+  margin-top: 10px;
+  box-shadow: 0 4px 12px rgba(207, 102, 121, 0.3);
+}
+
+.logout-btn:hover {
+  box-shadow: 0 6px 16px rgba(207, 102, 121, 0.4);
+}
